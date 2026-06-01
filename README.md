@@ -2,11 +2,19 @@
 
 Du an nay phan tich cam xuc bai hat Spotify bang PySpark va Spark MLlib. Notebook chinh la `btl_big_data.ipynb`, su dung tap du lieu `spotify_dataset.csv`, lam sach du lieu, tao nhan `sentiment_label` tu cot `Positiveness`, truc quan hoa dac trung am thanh va huan luyen cac mo hinh phan loai cam xuc.
 
+## Xem nhanh tren GitHub
+
+Neu GitHub khong render duoc file notebook `.ipynb`, bam vao ban Markdown de xem truc tiep:
+
+[Xem bao cao notebook](btl_big_data.md)
+
 ## 1. Cau truc thu muc
 
 ```text
 .
 ├── btl_big_data.ipynb              # Notebook bai tap lon
+├── btl_big_data.md                 # Ban xem nhanh tren GitHub
+├── btl_big_data_files/             # Anh output cho ban Markdown
 ├── spotify_dataset.csv             # Du lieu goc Spotify
 ├── spotify_data_clean.parquet/     # Du lieu da luu dang Parquet
 ├── spark-3.5.8-bin-hadoop3/        # Apache Spark local
@@ -155,4 +163,3 @@ Dataset CSV gan 1.1 GB, nen cac lenh `count()`, `toPandas()` va ve bieu do co th
 ### Loi bien chua duoc dinh nghia
 
 Hay chay lai notebook tu dau theo thu tu. Rieng cac cell Logistic Regression, Decision Tree va Random Forest can co `train_final` va `test_final`, duoc tao o cell "Chuan bi lai dataset cho mo hinh - fix AUC".
-

@@ -1,0 +1,26 @@
+# Python / Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Virtual environments
+myenv/
+bigdata_env/
+.venv/
+venv/
+env/
+
+# Local editor config
+.vscode/
+
+# Spark local install/archive
+spark-3.5.8-bin-hadoop3/
+spark-3.5.8-bin-hadoop3.tgz
+
+# Large local datasets / generated outputs
+spotify_dataset.csv
+spotify_data_clean.parquet/
+
+# OS / logs
+.DS_Store
+*.log

@@ -1422,5 +1422,66 @@ plt.show()
 ```python
 ### 5. Trực quan hóa kết quả (Data Visualization) & Nhận xét
 ##Chuyển đổi kết quả đánh giá từ Spark DataFrame sang Pandas DataFrame để sử dụng thư viện đồ họa chuyên sâu `Matplotlib` và `Seaborn`.
-##Nhận xét kết quả**: (Sau khi chạy xong, bạn nhìn vào chỉ số AUC nào cao hơn để điền nhận xét tương ứng. Thông thường Decision Tree hoặc Random Forest sẽ nhỉnh hơn Logistic Regression do thuộc tính âm thanh có tính phi tuyến tính cao).
+##Nhận xét kết quả**: Dựa trên AUC-ROC và Recall, Random Forest cho kết quả tốt nhất, tiếp theo là Decision Tree và Logistic Regression.
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Tổng hợp kết quả đánh giá từ các mô hình đã chạy ở trên.
+# Nếu chạy lại mô hình và chỉ số thay đổi, cập nhật các giá trị trong bảng này.
+model_results = pd.DataFrame({
+    'Model': ['Logistic Regression', 'Decision Tree', 'Random Forest'],
+    'AUC-ROC': [0.7613, 0.7904, 0.7909],
+    'Recall': [0.6236, 0.6741, 0.6894],
+    'Accuracy': [0.69, 0.72, 0.72]
+})
+
+print('Bảng so sánh hiệu suất mô hình:')
+display(model_results)
+
+sns.set_theme(style='whitegrid')
+fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+
+sns.barplot(data=model_results, x='Model', y='AUC-ROC', ax=axes[0],
+            palette=['#4C78A8', '#F58518', '#54A24B'])
+axes[0].set_title('So sánh AUC-ROC giữa các mô hình')
+axes[0].set_xlabel('Mô hình')
+axes[0].set_ylabel('AUC-ROC')
+axes[0].set_ylim(0, 1)
+for container in axes[0].containers:
+    axes[0].bar_label(container, fmt='%.4f', padding=3)
+
+sns.barplot(data=model_results, x='Model', y='Recall', ax=axes[1],
+            palette=['#72A2C9', '#FFB55A', '#88CC88'])
+axes[1].set_title('So sánh Recall giữa các mô hình')
+axes[1].set_xlabel('Mô hình')
+axes[1].set_ylabel('Recall')
+axes[1].set_ylim(0, 1)
+for container in axes[1].containers:
+    axes[1].bar_label(container, fmt='%.4f', padding=3)
+
+for ax in axes:
+    ax.tick_params(axis='x', rotation=15)
+
+plt.tight_layout()
+plt.savefig('btl_big_data_files/model_comparison_auc_recall.png', dpi=160, bbox_inches='tight')
+plt.show()
+
+best_model = model_results.sort_values('AUC-ROC', ascending=False).iloc[0]
+print(f"Mô hình có AUC-ROC cao nhất là {best_model['Model']} với AUC = {best_model['AUC-ROC']:.4f}.")
+print('Nhận xét: Random Forest và Decision Tree nhỉnh hơn Logistic Regression vì các thuộc tính âm thanh có quan hệ phi tuyến tính, trong khi Logistic Regression là mô hình tuyến tính nên khó nắm bắt hết các mẫu phức tạp trong dữ liệu.')
 ```
+
+    Bảng so sánh hiệu suất mô hình:
+
+|    | Model               |   AUC-ROC |   Recall |   Accuracy |
+|---:|:--------------------|----------:|---------:|-----------:|
+|  0 | Logistic Regression |    0.7613 |   0.6236 |       0.69 |
+|  1 | Decision Tree       |    0.7904 |   0.6741 |       0.72 |
+|  2 | Random Forest       |    0.7909 |   0.6894 |       0.72 |
+
+![png](btl_big_data_files/model_comparison_auc_recall.png)
+
+    Mô hình có AUC-ROC cao nhất là Random Forest với AUC = 0.7909.
+    Nhận xét: Random Forest và Decision Tree nhỉnh hơn Logistic Regression vì các thuộc tính âm thanh có quan hệ phi tuyến tính, trong khi Logistic Regression là mô hình tuyến tính nên khó nắm bắt hết các mẫu phức tạp trong dữ liệu.

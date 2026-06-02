@@ -81,6 +81,34 @@ btl_big_data.ipynb
 
 Chay lan luot cac cell tu tren xuong duoi. Khong nen chay rieng le cac cell mo hinh khi chua chay cac cell chuan bi du lieu, vi cac bien nhu `spark`, `df`, `train_final`, `test_final` can duoc tao truoc.
 
+## 4.1. Cach chay dashboard local
+
+Dashboard Streamlit doc truc tiep du lieu `spotify_data_clean.parquet` bang Spark va ho tro loc nhanh theo sentiment, popularity, genre, emotion, artist va ten bai hat.
+
+Tu thu muc goc du an:
+
+```bash
+cd /home/phongtre/Desktop/Humungousour
+source myenv/bin/activate
+pip install -r requirements-dashboard.txt
+streamlit run dashboard.py
+```
+
+Sau khi chay, mo duong dan Streamlit hien tren terminal, thuong la:
+
+```text
+http://localhost:8501
+```
+
+Neu Spark khong khoi dong duoc, thiet lap lai bien moi truong:
+
+```bash
+export SPARK_HOME=/home/phongtre/Desktop/Humungousour/spark-3.5.8-bin-hadoop3
+export PATH=$SPARK_HOME/bin:$PATH
+export PYSPARK_PYTHON=/home/phongtre/Desktop/Humungousour/myenv/bin/python
+export SPARK_LOCAL_IP=127.0.0.1
+```
+
 ## 5. Quy trinh xu ly trong notebook
 
 1. Khoi tao Spark Session voi che do local `local[*]`.
